@@ -1,6 +1,8 @@
 [versions]
 kotlin = "2.0.20"
 echo = "1.0.0" # Versión de nuestro proyecto
+kotlinx-datetime = "0.6.1"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
