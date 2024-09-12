@@ -1,0 +1,6 @@
+[versions]
+kotlin = "2.0.20"
+echo = "1.0.0" # Versión de nuestro proyecto
+
+[libraries]
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
