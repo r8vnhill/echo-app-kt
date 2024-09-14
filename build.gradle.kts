@@ -1,5 +1,6 @@
 plugins {
     id("jvm.conventions")
+    id("playground")
 }
 
 val projectGroup = extra["echo.group"] ?: error("La propiedad 'echo.group' no está definida.")
