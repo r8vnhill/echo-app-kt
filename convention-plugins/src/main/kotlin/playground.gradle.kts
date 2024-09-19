@@ -1,11 +1,9 @@
+import extensions.GreetExtension
 import tasks.FibonacciTask
 import tasks.UppercaseTask
-
-tasks.register("greet") {
-    group = "playground"
-    description = "Prints a greeting message"
-    println("Hello, Gradle!")   // This is executed during the configuration phase, this is a mistake!!!
-}
+import plugins.HelloPlugin
+import plugins.VersioningPlugin
+import tasks.ParityTask
 
 tasks.register("fib") {
     group = "Playground"
@@ -74,8 +72,35 @@ tasks.register<FibonacciTask>("fib_20") {
 }
 
 tasks.register<UppercaseTask>("processText") {
+    group = "playground"
+    description = "Processes text from an input file"
     inputFile = file("input.txt")
     outputFile = file("output.txt")
     doFirst { println("Processing text...") }
     doLast { println("Processing complete.") }
+}
+
+apply<HelloPlugin>()
+apply<VersioningPlugin>()
+
+project.extensions.create<GreetExtension>("greeting")
+
+tasks.register("greet") {
+    group = "playground"
+    description = "Prints a greeting message"
+    doLast {
+        val module = project.extensions.getByType<GreetExtension>().module
+        println("Hello, from $module!")
+    }
+}
+
+tasks.register<ParityTask>("parityTask") {
+    inputFile = file("numbers.txt")
+    outputFile = file("results.txt")
+    doFirst {
+        println("Checking parity for numbers in a file...")
+    }
+    doLast {
+        println("Parity check complete.")
+    }
 }

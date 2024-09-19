@@ -1,7 +1,9 @@
 plugins {
-    `kotlin-dsl`    // (1)
+    `kotlin-dsl`
 }
 
 dependencies {
     implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.dokka)
 }

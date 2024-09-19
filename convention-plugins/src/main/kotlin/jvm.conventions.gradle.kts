@@ -9,3 +9,9 @@ tasks.test {
         showStandardStreams = true
     }
 }
+
+kotlin {
+    jvmToolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
