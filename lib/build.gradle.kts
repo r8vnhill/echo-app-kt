@@ -1,5 +1,5 @@
 plugins {
-    id("compile.conventions")
+    id("publish.conventions")
     id("dokka.conventions")
     alias(libs.plugins.dokka)
 }
@@ -8,8 +8,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 }
 
-fatJar {
-    implementationTitle = project.name
-    implementationVersion = project.version.toString()
+artifact {
+    artifactName = "${rootProject.name}-${project.name}"
+    artifactVersion = project.version.toString()
 }
-

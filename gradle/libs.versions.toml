@@ -4,12 +4,14 @@ echo = "1.0.0" # Versión de nuestro proyecto
 kotlinx-datetime = "0.6.1"
 detekt = "1.23.6"
 dokka = "1.9.20"
+echolib = "1.0.0" # Versión de la librería
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 dokka = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
+echo = { module = "cl.ravenhill:echo-app-lib", version.ref = "echolib" }
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

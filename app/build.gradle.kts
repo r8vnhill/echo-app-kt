@@ -3,11 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(
-        fileTree("libs") {
-            include("lib-1.0.0-all.jar")
-        }
-    )
+    implementation(libs.echo)
 }
 
 application {

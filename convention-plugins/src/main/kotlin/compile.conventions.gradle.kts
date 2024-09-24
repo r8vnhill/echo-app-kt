@@ -6,6 +6,8 @@ plugins {
     id("dokka.conventions")
 }
 
+extensions.create<FatJarExtension>("fatJar")
+
 tasks.register<Jar>("fatJar") {
     group = "build"
     description = "Creates a fat JAR with all dependencies"
