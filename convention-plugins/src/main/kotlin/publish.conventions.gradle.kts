@@ -1,5 +1,6 @@
 import extensions.ArtifactExtension
 import extensions.FatJarExtension
+import java.util.*
 
 plugins {
     id("compile.conventions")
@@ -8,6 +9,13 @@ plugins {
 }
 
 project.extensions.create<ArtifactExtension>("artifact")
+
+val githubProperties = Properties().apply {
+    load(rootProject.file("github.properties").reader())
+}
+
+val githubToken: String = githubProperties.getProperty("github.token")
+val githubUser: String = githubProperties.getProperty("github.username")
 
 afterEvaluate {
     val artifactExtension = project.extensions.getByType<ArtifactExtension>()
@@ -37,8 +45,8 @@ afterEvaluate {
                 url = uri("https://maven.pkg.github.com/r8vnhill/echo-app-kt")
 
                 credentials {
-                    username = System.getenv("GITHUB_USER") ?: error("GITHUB_USER is not set")
-                    password = System.getenv("GITHUB_TOKEN") ?: error("GITHUB_TOKEN is not set")
+                    username = githubUser
+                    password = githubToken
                 }
             }
         }

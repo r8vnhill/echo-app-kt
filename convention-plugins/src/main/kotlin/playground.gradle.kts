@@ -4,25 +4,34 @@ import tasks.UppercaseTask
 import plugins.HelloPlugin
 import plugins.VersioningPlugin
 import tasks.ParityTask
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-tasks.register("fib") {
+tasks.register("printFibonacciSequence") {
     group = "Playground"
-    description = "Calculates the Fibonacci sequence up to the 10th number"
-    var first = 0
-    var second = 1
+    description = "Prints the first 10 Fibonacci numbers and highlights the last one"
+
+    val sequence = mutableListOf<Int>()
+
     doFirst {
+        var first = 0
+        var second = 1
         repeat(10) {
-            print("$first ")
-            second += first
-            first = second - first
+            sequence.add(first)
+            val temp = first + second
+            first = second
+            second = temp
         }
+
+        sequence.forEach(::println)
     }
+
     doLast {
-        println("\nThe 10th Fibonacci number is: $first")
+        println("\nThe 10th Fibonacci number is: ${sequence.last()}")
     }
 }
 
-tasks.register("message") {
+tasks.register("announceFibonacci") {
     group = "Playground"
     description = "Prints a message before calculating the Fibonacci sequence"
     doFirst {
@@ -30,8 +39,8 @@ tasks.register("message") {
     }
 }
 
-tasks.named("fib") {
-    dependsOn("message")
+tasks.named("printFibonacciSequence") {
+    dependsOn("announceFibonacci")
 }
 
 tasks.register("countCompiledSize") {
@@ -49,10 +58,14 @@ tasks.register("countCompiledSize") {
 
 tasks.register<Copy>("copyCompiledClasses") {
     group = "build"
-    description = "Copy the compiled classes to a specific directory"
+    description = "Copies compiled classes from all modules into a timestamped output directory"
     dependsOn("compileKotlin")
-    from("app/build/classes/kotlin/main")
-    into("compiled-classes")
+
+    val modules = listOf("app", "lib")
+    val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"))
+
+    from(modules.map { "$it/build/classes/kotlin/main" })
+    into("compiled-classes-$timestamp")
 }
 
 tasks.register<FibonacciTask>("fib_10") {
@@ -91,6 +104,14 @@ tasks.register("greet") {
     doLast {
         val module = project.extensions.getByType<GreetExtension>().module
         println("Hello, from $module!")
+    }
+}
+
+tasks.register("greetPrince") {
+    group = "Playground"
+    description = "Greets the Prince of Persia before his next mission"
+    doLast {
+        println("The sands of time are calling, Prince...")
     }
 }
 
